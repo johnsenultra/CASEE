@@ -1,8 +1,10 @@
+import { First } from "./First"
+
 function App() {
 
   return (
     <div>
-      <h1>Hello World</h1>
+      <First />
     </div>
   )
 }

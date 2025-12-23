@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Unit test configuration
+test
+*.test.tsx
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

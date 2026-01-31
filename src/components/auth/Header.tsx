@@ -17,12 +17,14 @@ export default function Header() {
               <li>Contact</li>
               <Link to="signin">Login</Link>
               <Link to="signup">
-                <span className="cursor-pointer rounded-xl bg-black px-4 py-2 text-sm hover:bg-gray-800 md:text-base">Signup</span>
+                <span className="cursor-pointer rounded-xl bg-black px-4 py-2 text-sm hover:bg-gray-800 md:text-base">
+                  Signup
+                </span>
               </Link>
             </ul>
           </div>
         </nav>
       </header>
     </div>
-  )
+  );
 }

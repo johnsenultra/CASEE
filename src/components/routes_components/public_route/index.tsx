@@ -3,10 +3,14 @@ import { useAuth } from "@/context/AuthProvider";
 import type React from "react";
 import { Navigate } from "react-router-dom";
 
-export default function PublicRoute({ children }: {children: React.JSX.Element}) {
+export default function PublicRoute({
+  children,
+}: {
+  children: React.JSX.Element;
+}) {
   const { session, loading } = useAuth();
 
-  if(loading) {
+  if (loading) {
     return (
       // show loading skeleton while checking auth status
       <div className="flex items-center space-x-4">
@@ -16,15 +20,13 @@ export default function PublicRoute({ children }: {children: React.JSX.Element})
           <Skeleton className="h-12 w-50" />
         </div>
       </div>
-    )
+    );
   }
 
   // If logged in, redirect user away from signin/signup pages
-  if(session) {
-    return (
-      <Navigate to={"/"} />
-    )
+  if (session) {
+    return <Navigate to={"/"} />;
   }
 
-  return <div>{children}</div>
+  return <div>{children}</div>;
 }

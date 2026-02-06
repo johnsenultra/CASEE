@@ -29,10 +29,10 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies
-        uses: pnpm isntall --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Test
-        uses: pnpm test
+        run: pnpm test
 
       - name: Build
-        uses: pnpm build
+        run: pnpm build

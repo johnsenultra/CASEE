@@ -4,10 +4,10 @@ on:
   pull_request:
     branches:
       - master
-  push:
-    branches:
-      - developments
-      - feature
+  # push:
+  #   branches:
+  #     - developments
+  #     - feature
 
 jobs:
   test:
@@ -29,10 +29,10 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies
-        uses: pnpm isntall --frozen-lockfile
+        run: pnpm isntall --frozen-lockfile
 
       - name: Test
-        uses: pnpm test
+        run: pnpm test
 
       - name: Build
-        uses: pnpm build
+        run: pnpm build

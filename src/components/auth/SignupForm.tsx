@@ -2,17 +2,49 @@ import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
-export default function SigninForm() {
+export default function SignupForm() {
   return (
     <div>
       <form className="space-y-5">
-        {/* Error message component handler */}
+        <div>{/* Error message component handler */}</div>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label
+              htmlFor="firstName"
+              className="mb-1 inline-block text-sm font-medium text-gray-700"
+            >
+              First Name
+            </label>
+            <Input
+              id="firstName"
+              type="text"
+              placeholder="John"
+              required
+              className="py-6 shadow-sm focus:border-black focus:ring-1 focus:ring-black focus:outline-none"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="lastName"
+              className="mb-1 inline-block text-sm font-medium text-gray-700"
+            >
+              Last Name:
+            </label>
+            <Input
+              id="lastName"
+              type="text"
+              placeholder="Doe"
+              required
+              className="py-6 shadow-sm focus:border-black focus:ring-1 focus:ring-black focus:outline-none"
+            />
+          </div>
+        </div>
         <div>
           <label
             htmlFor="email"
             className="mb-1 inline-block text-sm font-medium text-gray-700"
           >
-            Email address
+            Email Address
           </label>
           <Input
             id="email"
@@ -41,7 +73,7 @@ export default function SigninForm() {
           type="submit"
           className="inline-flex w-full rounded-xl px-4 py-6 text-sm font-medium shadow-sm"
         >
-          Sign in
+          Create account
         </Button>
       </form>
       <div className="mt-6">
@@ -58,10 +90,10 @@ export default function SigninForm() {
       </div>
       <div className="mt-6">
         <Link
-          to="/signup"
-          className="group flex w-full items-center justify-center rounded-xl border border-black py-3 text-sm font-medium shadow-sm hover:bg-gray-200"
+          to="/signin"
+          className="group flex w-full items-center justify-center rounded-xl border border-black px-4 py-3 text-sm font-medium shadow-sm hover:bg-gray-200"
         >
-          Creat an account
+          Sign in instead
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"

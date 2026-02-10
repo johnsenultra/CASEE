@@ -4,10 +4,10 @@ on:
   pull_request:
     branches:
       - master
-  push:
-    branches:
-      - developments
-      - feature
+  # push:
+  #   branches:
+  #     - developments
+  #     - feature
 
 jobs:
   test:
@@ -18,14 +18,14 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install pnpm
-        uses: pnpm/actions-setup@v4
+        uses: pnpm/action-setup@v4
         with:
           version: 10
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          version: "20"
+          node-version: "20"
           cache: "pnpm"
 
       - name: Install dependencies

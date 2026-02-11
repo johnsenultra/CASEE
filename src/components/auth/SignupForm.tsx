@@ -1,12 +1,73 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import React, { useState } from "react";
+import { supabase } from "@/utils/supabase";
+
+type signupFormType = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+};
 
 export default function SignupForm() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [errors, setErrors] = useState<FormErrors>({})
+  const [signupForm, setSignupForm] = useState<signupFormType>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  // Event handler for input changes
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setSignupForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    console.log(e.target.name, e.target.value);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    // Call API here
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: signupForm.email,
+        password: signupForm.password,
+        options: {
+          data: {
+            first_name: signupForm.firstName,
+            last_name: signupForm.lastName,
+          },
+        },
+      });
+
+      if (error) throw error;
+
+      // test cases log the user details
+      console.log("User created", data.user);
+      alert("Check your email to confirm your account");
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error(err.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div>
-      <form className="space-y-5">
+      <form onSubmit={handleSubmit} className="space-y-5">
         <div>{/* Error message component handler */}</div>
+        <p>{signupForm.firstName}</p>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label
@@ -16,11 +77,13 @@ export default function SignupForm() {
               First Name
             </label>
             <Input
-              id="firstName"
+              name="firstName"
               type="text"
               placeholder="John"
               required
               className="py-6 shadow-sm focus:border-black focus:ring-1 focus:ring-black focus:outline-none"
+              value={signupForm.firstName}
+              onChange={handleChangeInput}
             />
           </div>
           <div>
@@ -31,11 +94,13 @@ export default function SignupForm() {
               Last Name:
             </label>
             <Input
-              id="lastName"
+              name="lastName"
               type="text"
               placeholder="Doe"
               required
               className="py-6 shadow-sm focus:border-black focus:ring-1 focus:ring-black focus:outline-none"
+              value={signupForm.lastName}
+              onChange={handleChangeInput}
             />
           </div>
         </div>
@@ -47,11 +112,13 @@ export default function SignupForm() {
             Email Address
           </label>
           <Input
-            id="email"
+            name="email"
             type="email"
             placeholder="johndoe@example.com"
             required
             className="py-6 shadow-sm focus:border-black focus:ring-1 focus:ring-black focus:outline-none"
+            value={signupForm.email}
+            onChange={handleChangeInput}
           />
         </div>
         <div>
@@ -62,18 +129,21 @@ export default function SignupForm() {
             Password
           </label>
           <Input
-            id="password"
+            name="password"
             type="password"
             placeholder="•••••••••"
             required
             className="py-6 shadow-sm focus:border-black focus:ring-1 focus:ring-black focus:outline-none"
+            value={signupForm.password}
+            onChange={handleChangeInput}
           />
         </div>
         <Button
           type="submit"
+          disabled={isLoading}
           className="inline-flex w-full rounded-xl px-4 py-6 text-sm font-medium shadow-sm"
         >
-          Create account
+          {isLoading ? "Creating account..." : "Create account"}
         </Button>
       </form>
       <div className="mt-6">

@@ -1,11 +1,57 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import React, { useState } from "react";
+import { supabase } from "@/utils/supabase";
+
+type signinFormType = {
+  email: string;
+  password: string;
+};
 
 export default function SigninForm() {
+  const [signinForm, setSigninForm] = useState<signinFormType>({
+    email: "",
+    password: "",
+  });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // Event handler for input changes
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setSigninForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    console.log(e.target.name, e.target.value);
+  };
+
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: signinForm.email,
+        password: signinForm.password,
+      });
+      if (error) throw error;
+
+      // use cases test
+      console.log("User sign in", data.user);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error(err.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div>
-      <form className="space-y-5">
+      <form onSubmit={handleSubmit} className="space-y-5">
         {/* Error message component handler */}
         <div>
           <label
@@ -15,11 +61,13 @@ export default function SigninForm() {
             Email address
           </label>
           <Input
-            id="email"
+            name="email"
             type="email"
             placeholder="johndoe@example.com"
             required
             className="py-6 shadow-sm focus:border-black focus:ring-1 focus:ring-black focus:outline-none"
+            value={signinForm.email}
+            onChange={handleChangeInput}
           />
         </div>
         <div>
@@ -30,16 +78,19 @@ export default function SigninForm() {
             Password
           </label>
           <Input
-            id="password"
+            name="password"
             type="password"
             placeholder="•••••••••"
             required
             className="py-6 shadow-sm focus:border-black focus:ring-1 focus:ring-black focus:outline-none"
+            value={signinForm.password}
+            onChange={handleChangeInput}
           />
         </div>
         <Button
           type="submit"
           className="inline-flex w-full rounded-xl px-4 py-6 text-sm font-medium shadow-sm"
+          disabled={isLoading}
         >
           Sign in
         </Button>

@@ -24,7 +24,7 @@ export default function PrivateRoute({
 
   // if not logged in, redirect to signin
   if (!session) {
-    return <Navigate to={"/auth/signin"} replace />;
+    return <Navigate to={"/signin"} replace />;
   }
 
   // if logged in rended the children

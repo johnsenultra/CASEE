@@ -25,7 +25,7 @@ export default function PublicRoute({
 
   // If logged in, redirect user away from signin/signup pages
   if (session) {
-    return <Navigate to={"/"} />;
+    return <Navigate to={"/dashboard"} />;
   }
 
   return <div>{children}</div>;

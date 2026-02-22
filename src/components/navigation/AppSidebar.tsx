@@ -100,7 +100,6 @@ export default function AppSidebar() {
                   <SidebarMenuButton asChild tooltip={item.title}>
                     <NavLink
                       to={item.url}
-                      end={item.url === "/dashboard"}
                       className={({ isActive }) =>
                         isActive ? "bg-sidebar-accent font-medium" : ""
                       }

@@ -9,9 +9,8 @@ export default function Header() {
     <header className="bg-[#764ba2] py-4 text-white shadow-lg">
       <nav className="lg-px-12 mx-auto flex max-w-7xl flex-wrap items-center justify-between px-3 md:px-6">
         {/* Logo here */}
-        <div>
-          <AuthLogo />
-        </div>
+        <AuthLogo />
+        <div></div>
         {/* Navigation links */}
         <div className="hidden text-[1rem] font-medium md:flex md:text-lg">
           <ul className="flex flex-row gap-7">

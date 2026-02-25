@@ -3,5 +3,5 @@ export function First() {
     <>
       <h1>Hello World</h1>
     </>
-  )
+  );
 }
